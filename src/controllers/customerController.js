@@ -2,16 +2,28 @@ const controller = {}
 
 controller.list = (req,res)=>{
    req.getConnection((err,conn)=>{
-    conn.query('SELECT * FROM customer', (err,rows)=>{
+    conn.query('SELECT * FROM customer', (err,customers)=>{
         if(err){
-            console.error('Error al conectar a la base de datos: ' + err.message);
+            res.json(err);
         }
-        console.log(rows);
+        console.log(customers);
         res.render('customers',{
-            data: rows
+            data: customers
         });
     });
    });
+}
+
+controller.save = (req,res) =>{
+    const data = req.body;
+    req.getConnection((err,conn)=>{
+        conn.query('INSERT INTO customer set ?', [data], (err,customers)=>{
+            console.log(customers);
+            res.send(customers);
+        })
+
+    })
+    
 }
 
 module.exports = controller;

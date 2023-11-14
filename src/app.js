@@ -25,6 +25,9 @@ app.use(myConnection(mysql, {
     database: 'crudenodejsmysql'
 }, 'single'));
 
+//cuando recibamos los datos los recibiremos dentro del obj request
+app.use(express.urlencoded({extended: false}));
+
 //routes
 app.use('/', customerRoutes);
 
