@@ -2,7 +2,7 @@ const controller = {}
 
 controller.list = (req,res)=>{
    req.getConnection((err,conn)=>{
-    conn.query('SELECT * FROM customer', (err,customers)=>{
+    conn.query('SELECT * FROM customersdb', (err,customers)=>{
         if(err){
             res.json(err);
         }
@@ -19,11 +19,13 @@ controller.save = (req,res) =>{
     req.getConnection((err,conn)=>{
         conn.query('INSERT INTO customer set ?', [data], (err,customers)=>{
             console.log(customers);
-            res.send(customers);
+            res.redirect('/');
         })
 
     })
     
 }
+
+
 
 module.exports = controller;
